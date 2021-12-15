@@ -425,11 +425,9 @@ class CCPlugin(object):
         # if so, we have to remove the last 3 segments
         path = cls.get_console_path()
         path = os.path.abspath(path)
-        print(f"type of path is {type(path)}, type of pardir {type(os.path.pardir)}")
         cocos2dx_path = os.path.abspath(
             os.path.join(path, os.path.pardir, os.path.pardir, os.path.pardir)
         )
-        print(f"cocos2dx_path is {cocos2dx_path}")
         if os.path.isdir(cocos2dx_path):
             return cocos2dx_path
 
@@ -438,7 +436,6 @@ class CCPlugin(object):
             # the source code is not expected to be installed
             Logging.warning(MultiLanguage.get_string("COCOS_WARNING_ENGINE_NOT_FOUND"))
 
-        print("in get_cocos2d_path return None")
         return None
 
     @classmethod
@@ -452,9 +449,7 @@ class CCPlugin(object):
         """returns a set of paths where templates are installed"""
 
         parser = Cocos2dIniParser()
-        print(f"the cparser is {parser.__dict__}")
         templates_path = parser.get_templates_path()
-        print(f"the templates_path is {templates_path}")
         paths = []
 
         #
@@ -467,7 +462,6 @@ class CCPlugin(object):
         # 2: Path defined by walking the cocos2d path
         #
         path = cls.get_cocos2d_path()
-        print(f"the path of cocos2d is {path}")
         if path is not None:
             # Try one: cocos2d-x/templates (assuming it is using cocos2d-x's setup.py)
             # Try two: cocos2d-x/../../templates
@@ -475,7 +469,6 @@ class CCPlugin(object):
             for p in possible_paths:
                 p = os.sep.join(p)
                 template_path = os.path.abspath(os.path.join(path, p))
-                print(f"the template_path is {template_path}")
                 try:
                     if os.path.isdir(template_path):
                         paths.append(template_path)
@@ -492,7 +485,6 @@ class CCPlugin(object):
         # 3: Templates can be in ~/.cocos2d/templates as well
         #
         user_path = os.path.expanduser("~/.cocos/templates")
-        print(f"the userPath is {user_path}")
         if os.path.isdir(user_path):
 
             paths.append(user_path)
@@ -723,8 +715,8 @@ def get_xcode_version():
     xcode = None
     version = None
     for line in child.stdout:
-        if "Xcode" in line:
-            xcode, version = str.split(line, " ")
+        if "Xcode".encode("utf-8") in line:
+            xcode, version = str.split(line.decode(), " ")
 
     child.wait()
 
@@ -811,10 +803,7 @@ def copy_files_in_dir(src, dst):
 
 def replace_env_variable(the_str):
     env_pattern = "\${(.*)}"
-    print(f"type of the str is {type(the_str)}")
-    print(f"the_str is {the_str} ")
     if type(the_str) == bytes:
-        print(f"the_str is {the_str.decode('utf-8')}")
         the_str = the_str.decode("utf-8")
     match = re.match(env_pattern, the_str)
     ret = the_str

@@ -757,7 +757,7 @@ class CCPluginCompile(cocos.CCPlugin):
         projectPath = os.path.join(ios_project_dir, self.xcodeproj_name)
         pbxprojectPath = os.path.join(projectPath, "project.pbxproj")
 
-        f = file(pbxprojectPath)
+        f = open(pbxprojectPath)
         contents = f.read()
 
         section = re.search(
