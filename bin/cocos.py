@@ -49,7 +49,6 @@ class Cocos2dIniParser:
 
         # XXX: override with local config ??? why ???
         self._cp.read("~/.cocos2d-js/cocos2d.ini")
-        print(f"self._cp is {self._cp}")
 
     def parse_plugins(self):
         classes = {}
@@ -105,7 +104,6 @@ class Cocos2dIniParser:
         return cocos2d_x
 
     def get_templates_path(self):
-        print(f"self.cp is {self._cp} ")
         templates = self._cp.get("paths", "templates")
         templates = self._sanitize_path(templates)
         return templates
@@ -1038,7 +1036,6 @@ def _check_python_version():
         ret = False
 
     if not ret:
-        print("11111000000000000000000")
         print(
             (
                 MultiLanguage.get_string("COCOS_PYTHON_VERSION_TIP_FMT")

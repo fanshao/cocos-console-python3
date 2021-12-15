@@ -52,9 +52,9 @@ class MultiLanguage(object):
     @classmethod
     def get_string(cls, key, fmt_value=None):
         fmt = cls.get_instance().get_current_string(key)
-        print(f"the fmt is {fmt} ")
-        print(f"the fmt_value is {fmt_value} ")
-        print(f"the fmt_value type  is {type(fmt_value)} ")
+        # print(f"the fmt is {fmt} ")
+        # print(f"the fmt_value is {fmt_value} ")
+        # print(f"the fmt_value type  is {type(fmt_value)} ")
         if fmt_value is None:
             ret = fmt
         else:

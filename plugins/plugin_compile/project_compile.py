@@ -329,7 +329,6 @@ class CCPluginCompile(cocos.CCPlugin):
 
     def get_num_of_cpu(self):
         try:
-            print("55555555555555555555555555555555")
             return multiprocessing.cpu_count()
         except Exception:
             print(MultiLanguage.get_string("COMPILE_DETECT_CPU_FAILED"))

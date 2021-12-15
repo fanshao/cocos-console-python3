@@ -523,7 +523,6 @@ class Statistic(object):
 
                 # create processes to handle the events
                 proc_num = min(event_size, Statistic.MAX_CACHE_PROC)
-                print("111111111111111111")
                 for i in range(proc_num):
                     p = multiprocessing.Process(
                         target=do_send_ga_cached_event, args=(self.engine_version,)
@@ -541,7 +540,6 @@ class Statistic(object):
                 # remove the cached events file
                 if os.path.isfile(bi_cfg_file):
                     os.remove(bi_cfg_file)
-                print("222222222222222222222")
                 p = multiprocessing.Process(
                     target=do_send,
                     args=(
@@ -560,12 +558,9 @@ class Statistic(object):
     def send_event(self, category, action, label):
         try:
             event = [category, action, label]
-            print("33333333333333333333333333")
 
             # send event to GA
             if GA_ENABLED:
-                print("6666666666666666666666666")
-                print(f"event is {event}")
                 p = multiprocessing.Process(
                     target=do_send,
                     args=(
@@ -583,7 +578,6 @@ class Statistic(object):
             if BI_ENABLED:
                 # add timestamp
                 event.append(get_time_stamp())
-                print("4444444444444444444444444444")
                 p = multiprocessing.Process(
                     target=do_send,
                     args=(
